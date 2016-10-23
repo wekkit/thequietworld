@@ -4,9 +4,18 @@
 	font-family: 'Abhaya Libre', serif;
 }
 
+#skybox {
+	position: absolute;
+	width: 100vw;
+	height: 100vh;
+	background-color: white;
+	background-size: cover;
+}
+
 #background {
 	width: 100vw;
 	height: 100vh;
+	background-size: cover;
 }
 
 #char {
@@ -37,14 +46,25 @@
 	padding: 0;
 }
 
+#text {
+	position: absolute;
+	margin: auto;
+	text-align: left;
+}
+
 #nextbtn {
 	position: absolute;
 	padding: 15px 20px 15px 20px;
-	top: 91vh;
+	top: 90vh;
 	left: 92vw;
 }
 
 #choicebtns {
-	margin-top: 20px;
+	position: relative;
+	margin-top: 30px;
 	display: none;
+}
+
+#choicebtns > button {
+	float: none;
 }
