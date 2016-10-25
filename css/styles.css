@@ -13,19 +13,49 @@
 }
 
 #background {
+	position: absolute;
 	width: 100vw;
 	height: 100vh;
 	background-size: cover;
 }
 
 #char {
-	width: 20vw;
-	height: 20vw;
+	width: 100vw;
+	height: 100vh;
 	position: absolute;
-	left: 40vw;
-	top: 20vh;
-	border-radius: 999px;
-	background-size: cover;
+}
+
+#char-mid {
+	height: 50%;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	margin: auto;
+	display: none;
+}
+
+#char-left {
+	height: 50%;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 50%;
+	margin: auto;
+	display: none;
+}
+
+#char-right {
+	height: 50%;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 50%;
+	right: 0;
+	margin: auto;
+	display: none;
 }
 
 #bottompanel {
@@ -35,7 +65,7 @@
 	top: 70vh;
 	background-color: rgba(255,255,255,0.9);
 	text-align: center;
-	padding: 20px;
+	padding: 40px;
 	font-size: 18px;
 }
 
@@ -47,7 +77,7 @@
 }
 
 #text {
-	position: absolute;
+	position: relative;
 	margin: auto;
 	text-align: left;
 }
@@ -55,8 +85,9 @@
 #nextbtn {
 	position: absolute;
 	padding: 15px 20px 15px 20px;
-	top: 90vh;
-	left: 92vw;
+	right: 0;
+	bottom: 0;
+	margin: 20px;
 }
 
 #choicebtns {
