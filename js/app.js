@@ -892,7 +892,7 @@ window.onload = function () {
 				clearListeners();
 			});
 			$('#choice2').on("click", function() {
-				gamechoice[16] = 4;
+				gamechoice[16] = 2;
 				wordcount += 5;
 				gametext[gamestate].header = "";
 				gametext[gamestate].text = "The CTO is fiddling with his pencil, trying to get a broken bit of graphite out.";
@@ -907,8 +907,7 @@ window.onload = function () {
 				nextStep();
 				clearListeners();
 			});
-
-			$('#choice3').on("click", function() {
+			$('#choice4').on("click", function() {
 				gamechoice[16] = 4;
 				gametext[gamestate].header = "";
 				gametext[gamestate].text = "The CTO is fiddling with his pencil, trying to get a broken bit of graphite out.";
@@ -1249,7 +1248,7 @@ window.onload = function () {
 	push("addin", "", "", "They've never been much good, but you like them anyway.");
 	push("", "", "", "As you start eating, a homeless man shuffles towards you.");
 	push("addin", "", "", "He looks dishevelled and smells like old socks.");
-	push("choice10", "", "Homeless man", "Spare some words, friend? Nobody gives me the time of day anymore.");
+	push("choice10", "", "Homeless Man", "Spare some words, friend? Nobody gives me the time of day anymore.");
 	push("unchoice", "", "", ""); // RESULT FOR CHOICE 10 GOES HERE.
 	push("", "", "", "The homeless man sits down next to you. He shifts uncomfortably for a bit, trying to adjust the seat of his pants.");
 	push("addin", "", "", "He turns to you.");
@@ -1308,7 +1307,7 @@ window.onload = function () {
 	push("addin", "", "", "You set up your presentation slides and get prepared.");
 	push("choice16", "", "", "It's time to begin.");
 	push("unchoice", "", "", ""); // RESULT FOR CHOICE 16 GOES HERE
-	push("", "", "", "It's becoming clearer and clearer where this presentation is heading.");
+	push("addin", "", "", "It's becoming clearer and clearer where this presentation is heading.");
 	push("choice17", "", "", "You try to press on with the bad news...");
 	push("unchoice", "", "", ""); // RESULT FOR CHOICE 17 GOES HERE
 	push("addin", "", "", "The CTO fidgets idly, playing with his armrests.");
