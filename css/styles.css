@@ -99,3 +99,10 @@
 #choicebtns > button {
 	float: none;
 }
+
+#textinput {
+	position: relative;
+	width: 50vw;
+	height: 40vh;
+	resize: none;
+};
