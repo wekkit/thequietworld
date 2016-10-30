@@ -18,7 +18,7 @@ window.onload = function () {
 	var charright = document.getElementById("char-right");
 
 	// DECLARE STATE TRACKING VARIABLES -------------------------
-	var gamestate = 121;
+	var gamestate = 1;
 	// game starts at 1
 	// coffeeshop starts at 23
 	// office scene starts at 35
