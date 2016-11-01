@@ -1322,7 +1322,7 @@ window.onload = function () {
 	push("addin", "", "", "He is clearly distressed.");
 	push("choice19", "", "CEO", "I did not think that it was this bad. We'll email.");
 	push("unchoice", "", "", ""); // RESULT FOR CHOICE 19 GOES HERE
-	push("", "", "", "You pack up and leave as they being a fervent discussion, but with carefully picked words. You notice that the CTO still hasn't spoken, and instead types his thoughts down.");
+	push("", "", "", "You pack up and leave as they begin a fervent discussion, but with carefully picked words. You notice that the CTO still hasn't spoken, and instead types his thoughts down.");
 	push("addin", "", "", "Perhaps he's run out of words too.");
 	push("bg12", "", "", "");
 	push("", "", "", "You step out onto the pavement. The sun has set and traffic is getting heavier. The only noise in the city nowadays is the sound of cars whizzing by.");
