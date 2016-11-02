@@ -18,7 +18,7 @@ window.onload = function () {
 	var charright = document.getElementById("char-right");
 
 	// DECLARE STATE TRACKING VARIABLES -------------------------
-	var gamestate = 1;
+	var gamestate = 23;
 	// game starts at 1
 	// coffeeshop starts at 23
 	// office scene starts at 35
@@ -1365,7 +1365,7 @@ window.onload = function () {
 	push("addin", "", "", "so I slowly whisper <em>I love you</em><br>thirty-two and a third times.&quot;")
 	push("", "", "", "&quot;After that we just sit on the line")
 	push("addin", "", "", "and listen to each other breathe.&quot;")
-	push("", "", "", "<em>&quot;The Quiet World&quot;</em>, by Jeffrey McDaniel.")
+	push("", "", "", "<em>&quot;- The Quiet World&quot;</em>, by Jeffrey McDaniel.")
 	push("fin","","","");
 
 
