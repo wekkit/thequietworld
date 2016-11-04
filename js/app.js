@@ -262,7 +262,7 @@ window.onload = function () {
 				$("#nextbtn").fadeIn(400);
 				$("#bottompanel").fadeIn(400);
 				nextStep();
-			}, 2000);
+			}, 4000);
 		}
 
 		if (gametext[gamestate].event === "bg15") {
@@ -1103,7 +1103,7 @@ window.onload = function () {
 			$("#char-right").fadeOut(300);
 		}
 		if (gametext[gamestate].char === 'barista-mid') {
-			charmid.src = "assets/img/barista.png";
+			charmid.src = "assets/img/barista.gif";
 			$("#char-mid").fadeIn(400);
 		}
 	}
@@ -1113,7 +1113,7 @@ window.onload = function () {
 			console.log("ending reached")
 			$("#nextbtn").hide();
 			$("#text").css("text-align", "center");
-			text.innerHTML = "You have " + (167-wordcount) + " words remaining."
+			text.innerHTML = "You kneel in front of your lover's grave.<br>You have " + (167-wordcount) + " words remaining."
 			$("#text").fadeIn(400);
 			$("#textinput").fadeIn(400);
 			create();
@@ -1122,7 +1122,7 @@ window.onload = function () {
 				$("#textinput").val(newtext.substring(0,counter));
 				if (newtext.charAt(counter) == " ") {
 					wordcount++;
-					text.innerHTML = "You have " + (167-wordcount) + " words remaining."
+					text.innerHTML = "You kneel in front of your lover's grave.<br>You have " + (167-wordcount) + " words remaining."
 					$("#title").html(167-wordcount);
 				}
 				counter++;
