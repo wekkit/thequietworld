@@ -29,7 +29,7 @@ window.onload = function () {
 	// street starts at 109
 	// chatter meeting starts at 121
 	// taxi ride starts at 151
-	// cemetary starts at 173
+	// cemetery starts at 176
 
 	var gametext = [];
 	var gamechoice = [];
@@ -61,8 +61,47 @@ window.onload = function () {
 		$("#choice4").off('click');
 	}
 
+	// DECLARE VARIABLES TO BIND AUDIO FILES----------------------------
+	var crowdSound = new Howl({
+		src: ['assets/audio/crowd.mp3'],
+		loop: true
+	});
+	var alarmSound = new Howl({
+		src: ['assets/audio/alarm.mp3'],
+		loop: true
+	});
+	var songSound = new Howl({
+		src: ['assets/audio/song.mp3'],
+		loop: true
+	});
+	var sadMusic = new Howl({
+		src: ['assets/audio/sadmusic.mp3'],
+		loop: false
+	});
+
+
 	// NON-TEXT EVENTS GO INTO THIS BIG-ASS FUNCTION -----------
 	var eventCheck = function() {
+		if (gametext[gamestate].event === "start") {
+			crowdSound.play();
+			crowdSound.fade(0,1,3000);
+			console.log("gametext[gamestate].event");
+		}
+		if (gametext[gamestate].event === "blackout1") {
+			crowdSound.fade(1,0,2000);
+			$("#bottompanel").fadeOut(400);
+			$("#background").hide();
+			$("#nextbtn").hide();
+			$("#background").css("background", "url()")
+			$("#background").css("background-color", "black");
+			$("#background").fadeIn(2000)
+			setTimeout(function() {
+				$("#nextbtn").fadeIn(400);
+				$("#skybox").css("background-color", "black");
+				nextStep();
+			}, 2000);
+			console.log("gametext[gamestate].event");
+		}
 		if (gametext[gamestate].event === "blackout") {
 			$("#bottompanel").fadeOut(400);
 			$("#background").hide();
@@ -77,28 +116,56 @@ window.onload = function () {
 			}, 2000);
 			console.log("gametext[gamestate].event");
 		}
+		if (gametext[gamestate].event === "awaken") {
+			alarmSound.play();
+			$("#bottompanel").fadeIn(400);
+			crowdSound.stop()
+			console.log("gametext[gamestate].event");
+		}
 		if (gametext[gamestate].event === "showBottomPanel") {
 			$("#bottompanel").fadeIn(400);
+			crowdSound.stop()
 			console.log("gametext[gamestate].event");
 		}
 		if (gametext[gamestate].event === "unchoice") {
 			$("#choicebtns").hide();
 			$("#nextbtn").fadeIn(400);	
 		}
-
-		if (gametext[gamestate].event === "bg1") {
-			$("#skybox").css("background-color", "black");
-			$("#background").hide().css("background-image", "url(assets/img/room.jpg)").fadeIn(2000);
-			setTimeout(function() {
-				$("#skybox").hide();
-			}, 2000);
+		if (gametext[gamestate].event === "sadmusic") {
+			sadMusic.play();
+			sadMusic.fade(0,1,1000);
+			$("#nextbtn").fadeIn(400);	
 		}
 
+		if (gametext[gamestate].event === "bg1") {
+			alarmSound.stop();
+			songSound.play();
+			$("#skybox").css("background-image", "url(assets/img/room.jpg)");
+			$("#background").fadeOut(3000);
+		}
+
+		// if (gametext[gamestate].event === "bg2") {
+		// 	songSound.fade(1,0,1000);
+		// 	$("#bottompanel").hide()
+		// 	$("#nextbtn").hide()
+		// 	$("#skybox").css("background-image", "url(assets/img/coffeeshop.jpg)").show();
+		// 	$("#background").fadeOut(2000);
+		// 	setTimeout(function() {
+		// 		$("#nextbtn").fadeIn(400);
+		// 		$("#bottompanel").fadeIn(400);
+		// 		nextStep();
+		// 	}, 2000);
+		// }
+
 		if (gametext[gamestate].event === "bg2") {
-			$("#bottompanel").hide()
-			$("#nextbtn").hide()
-			$("#skybox").css("background-image", "url(assets/img/coffeeshop.jpg)").show();
-			$("#background").fadeOut(2000);
+			songSound.fade(1,0,1000);
+			$("#bottompanel").hide();
+			$("#nextbtn").hide();
+			$("#background").css("background-color", "black").fadeIn(1000);
+			setTimeout(function(){
+				$("#skybox").css("background-image", "url(assets/img/coffeeshop.jpg)").show();
+				$("#background").fadeOut(1000);
+			},1000)			
 			setTimeout(function() {
 				$("#nextbtn").fadeIn(400);
 				$("#bottompanel").fadeIn(400);
@@ -107,11 +174,13 @@ window.onload = function () {
 		}
 
 		if (gametext[gamestate].event === "bg3") {
-			$("#bottompanel").hide()
-			$("#nextbtn").hide()
-			$("#background").css("background-image", "url(assets/img/coffeeshop.jpg)").show();
-			$("#skybox").css("background-image", "url(assets/img/office.jpg)").show();
-			$("#background").fadeOut(2000);
+			$("#bottompanel").hide();
+			$("#nextbtn").hide();
+			$("#background").css("background-color", "black").fadeIn(1000);
+			setTimeout(function(){
+				$("#skybox").css("background-image", "url(assets/img/office.jpg)").show();
+				$("#background").fadeOut(1000);
+			},1000)			
 			setTimeout(function() {
 				$("#nextbtn").fadeIn(400);
 				$("#bottompanel").fadeIn(400);
@@ -120,11 +189,13 @@ window.onload = function () {
 		}
 
 		if (gametext[gamestate].event === "bg4") {
-			$("#bottompanel").hide()
-			$("#nextbtn").hide()
-			$("#background").css("background-image", "url(assets/img/office.jpg)").show();
-			$("#skybox").css("background-image", "url(assets/img/meetingroom.jpg)").show();
-			$("#background").fadeOut(2000);
+			$("#bottompanel").hide();
+			$("#nextbtn").hide();
+			$("#background").css("background-color", "black").fadeIn(1000);
+			setTimeout(function(){
+				$("#skybox").css("background-image", "url(assets/img/meetingroom.jpg)").show();
+				$("#background").fadeOut(1000);
+			},1000)			
 			setTimeout(function() {
 				$("#nextbtn").fadeIn(400);
 				$("#bottompanel").fadeIn(400);
@@ -144,11 +215,13 @@ window.onload = function () {
 		}
 
 		if (gametext[gamestate].event === "bg6") {
-			$("#bottompanel").hide()
-			$("#nextbtn").hide()
-			$("#background").css("background-image", "url(assets/img/meetingroom.jpg)").show();
-			$("#skybox").css("background-image", "url(assets/img/lunch.jpg)").show();
-			$("#background").fadeOut(2000);
+			$("#bottompanel").hide();
+			$("#nextbtn").hide();
+			$("#background").css("background-color", "black").fadeIn(1000);
+			setTimeout(function(){
+				$("#skybox").css("background-image", "url(assets/img/lunch.jpg)").show();
+				$("#background").fadeOut(1000);
+			},1000)			
 			setTimeout(function() {
 				$("#nextbtn").fadeIn(400);
 				$("#bottompanel").fadeIn(400);
@@ -157,11 +230,13 @@ window.onload = function () {
 		}
 
 		if (gametext[gamestate].event === "bg7") {
-			$("#bottompanel").hide()
-			$("#nextbtn").hide()
-			$("#background").css("background-image", "url(assets/img/lunch.jpg)").show();
-			$("#skybox").css("background-image", "url(assets/img/bench.jpg)").show();
-			$("#background").fadeOut(2000);
+			$("#bottompanel").hide();
+			$("#nextbtn").hide();
+			$("#background").css("background-color", "black").fadeIn(1000);
+			setTimeout(function(){
+				$("#skybox").css("background-image", "url(assets/img/bench.jpg)").show();
+				$("#background").fadeOut(1000);
+			},1000)			
 			setTimeout(function() {
 				$("#nextbtn").fadeIn(400);
 				$("#bottompanel").fadeIn(400);
@@ -170,11 +245,13 @@ window.onload = function () {
 		}
 
 		if (gametext[gamestate].event === "bg8") {
-			$("#bottompanel").hide()
-			$("#nextbtn").hide()
-			$("#background").css("background-image", "url(assets/img/bench.jpg)").show();
-			$("#skybox").css("background-image", "url(assets/img/office.jpg)").show();
-			$("#background").fadeOut(2000);
+			$("#bottompanel").hide();
+			$("#nextbtn").hide();
+			$("#background").css("background-color", "black").fadeIn(1000);
+			setTimeout(function(){
+				$("#skybox").css("background-image", "url(assets/img/office.jpg)").show();
+				$("#background").fadeOut(1000);
+			},1000)			
 			setTimeout(function() {
 				$("#nextbtn").fadeIn(400);
 				$("#bottompanel").fadeIn(400);
@@ -183,11 +260,13 @@ window.onload = function () {
 		}
 
 		if (gametext[gamestate].event === "bg9") {
-			$("#bottompanel").hide()
-			$("#nextbtn").hide()
-			$("#background").css("background-image", "url(assets/img/office.jpg)").show();
-			$("#skybox").css("background-image", "url(assets/img/street.jpg)").show();
-			$("#background").fadeOut(2000);
+			$("#bottompanel").hide();
+			$("#nextbtn").hide();
+			$("#background").css("background-color", "black").fadeIn(1000);
+			setTimeout(function(){
+				$("#skybox").css("background-image", "url(assets/img/street.jpg)").show();
+				$("#background").fadeOut(1000);
+			},1000)			
 			setTimeout(function() {
 				$("#nextbtn").fadeIn(400);
 				$("#bottompanel").fadeIn(400);
@@ -196,29 +275,28 @@ window.onload = function () {
 		}
 
 		if (gametext[gamestate].event === "bg10") {
-			$("#bottompanel").fadeOut(400);
-			$("#background").hide();
+			$("#bottompanel").hide();
 			$("#nextbtn").hide();
-			$("#background").css("background", "url()")
-			$("#background").css("background-color", "black");
-			$("#background").fadeIn(2000)
-			setTimeout(function() {
+			$("#background").css("background-color", "black").fadeIn(2000);
+			setTimeout(function(){
 				$("#skybox").css("background-image", "url(assets/img/chatter.jpg)").show();
 				$("#background").fadeOut(2000);
-				setTimeout(function() {
-					$("#nextbtn").fadeIn(400);
-					$("#bottompanel").fadeIn(400);
-					nextStep();
-				}, 2000);
-			}, 3000);
+			},2000)			
+			setTimeout(function() {
+				$("#nextbtn").fadeIn(400);
+				$("#bottompanel").fadeIn(400);
+				nextStep();
+			}, 4000);
 		}
 
 		if (gametext[gamestate].event === "bg11") {
-			$("#bottompanel").hide()
-			$("#nextbtn").hide()
-			$("#background").css("background-image", "url(assets/img/chatter.jpg)").show();
-			$("#skybox").css("background-image", "url(assets/img/chattermeetingroom.jpg)").show();
-			$("#background").fadeOut(2000);
+			$("#bottompanel").hide();
+			$("#nextbtn").hide();
+			$("#background").css("background-color", "black").fadeIn(1000);
+			setTimeout(function(){
+				$("#skybox").css("background-image", "url(assets/img/chattermeetingroom.jpg)").show();
+				$("#background").fadeOut(1000);
+			},1000)			
 			setTimeout(function() {
 				$("#nextbtn").fadeIn(400);
 				$("#bottompanel").fadeIn(400);
@@ -227,11 +305,13 @@ window.onload = function () {
 		}
 
 		if (gametext[gamestate].event === "bg12") {
-			$("#bottompanel").hide()
-			$("#nextbtn").hide()
-			$("#background").css("background-image", "url(assets/img/chattermeetingroom.jpg)").show();
-			$("#skybox").css("background-image", "url(assets/img/nightstreet.jpg)").show();
-			$("#background").fadeOut(2000);
+			$("#bottompanel").hide();
+			$("#nextbtn").hide();
+			$("#background").css("background-color", "black").fadeIn(1000);
+			setTimeout(function(){
+				$("#skybox").css("background-image", "url(assets/img/nightstreet.jpg)").show();
+				$("#background").fadeOut(1000);
+			},1000)			
 			setTimeout(function() {
 				$("#nextbtn").fadeIn(400);
 				$("#bottompanel").fadeIn(400);
@@ -240,11 +320,13 @@ window.onload = function () {
 		}
 
 		if (gametext[gamestate].event === "bg13") {
-			$("#bottompanel").hide()
-			$("#nextbtn").hide()
-			$("#background").css("background-image", "url(assets/img/nightstreet.jpg)").show();
-			$("#skybox").css("background-image", "url(assets/img/cab.jpg)").show();
-			$("#background").fadeOut(2000);
+			$("#bottompanel").hide();
+			$("#nextbtn").hide();
+			$("#background").css("background-color", "black").fadeIn(1000);
+			setTimeout(function(){
+				$("#skybox").css("background-image", "url(assets/img/cab.jpg)").show();
+				$("#background").fadeOut(1000);
+			},1000)			
 			setTimeout(function() {
 				$("#nextbtn").fadeIn(400);
 				$("#bottompanel").fadeIn(400);
@@ -253,11 +335,13 @@ window.onload = function () {
 		}
 
 		if (gametext[gamestate].event === "bg14") {
-			$("#bottompanel").hide()
-			$("#nextbtn").hide()
-			$("#background").css("background-image", "url(assets/img/cab.jpg)").show();
-			$("#skybox").css("background-image", "url(assets/img/cemetary.jpg)").show();
-			$("#background").fadeOut(2000);
+			$("#bottompanel").hide();
+			$("#nextbtn").hide();
+			$("#background").css("background-color", "black").fadeIn(1000);
+			setTimeout(function(){
+				$("#skybox").css("background-image", "url(assets/img/cemetery.jpg)").show();
+				$("#background").fadeOut(2000);
+			},1000)			
 			setTimeout(function() {
 				$("#nextbtn").fadeIn(400);
 				$("#bottompanel").fadeIn(400);
@@ -313,8 +397,8 @@ window.onload = function () {
 
 		if (gametext[gamestate].event === "choice2") { // How do I order my coffee?
 			$("#nextbtn").hide();
-			choice1.innerHTML = "Hey. Can I get an espresso?";
-			choice2.innerHTML = "Just a coffee, thanks.";
+			choice1.innerHTML = "Hey, how’s it going. Can I get an iced black coffee please? Thanks.";
+			choice2.innerHTML = "Just a cup of coffee, thanks.";
 			choice3.innerHTML = "One coffee.";
 			choice4.innerHTML = "[Point at the medium-sized coffee cup.]";
 			$("#choice1").show();
@@ -324,7 +408,7 @@ window.onload = function () {
 			$("#choicebtns").fadeIn(400);
 			$("#choice1").on("click", function() {
 				gamechoice[1] = 1;
-				wordcount += 6;
+				wordcount += 13;
 				gametext[gamestate].header = "Barista";
 				gametext[gamestate].text = "Sure. Here you go.";
 				nextStep();
@@ -332,7 +416,7 @@ window.onload = function () {
 			});
 			$("#choice2").on("click", function() {
 				gamechoice[1] = 2;
-				wordcount += 4;
+				wordcount += 6;
 				gametext[gamestate].header = "Barista";
 				gametext[gamestate].text = "Sure. Here you go.";
 				nextStep();
@@ -357,14 +441,14 @@ window.onload = function () {
 
 		if (gametext[gamestate].event === "choice3") { // Do I say thanks for the coffee?
 			$("#nextbtn").hide();
-			choice1.innerHTML = "Thanks.";
+			choice1.innerHTML = "Perfect. Thanks!";
 			$("#choice2").hide();
 			choice3.innerHTML = "[Smile and walk away.]";
 			choice4.innerHTML = "[Walk away.]";
 			$("#choicebtns").fadeIn(400);
 			$('#choice1').on("click", function() {
 				gamechoice[2] = 1;
-				wordcount += 1;
+				wordcount += 2;
 				gametext[gamestate].header = "";
 				gametext[gamestate].text = "The barista beams as he hands you the coffee. Ever since the mandate, the value of courtesy has gone up tenfold. People now notice when you're nice to them, now that it's worth something.";
 				nextStep();
@@ -388,17 +472,17 @@ window.onload = function () {
 
 		if (gametext[gamestate].event === "choice4") { // Respond to receptionist
 			$("#nextbtn").hide();
-			choice1.innerHTML = "Had a good weekend?";
+			choice1.innerHTML = "Morning, Donna. Had a good weekend break?";
 			$("#choice1").show();
 			choice2.innerHTML = "Morning!";
 			$("#choice2").show();
 			choice3.innerHTML = "[Nod at Donna.]";
-			$("#choice3").show();
+			$("#choice3").hide();
 			choice4.innerHTML = "[Ignore Donna.]";
 			$("#choicebtns").fadeIn(400);
 			$('#choice1').on("click", function() {
 				gamechoice[3] = 1;
-				wordcount += 4;
+				wordcount += 7;
 				gametext[gamestate].header = "Donna";
 				gametext[gamestate].text = "Sure did!";
 				nextStep();
@@ -430,13 +514,13 @@ window.onload = function () {
 
 		if (gametext[gamestate].event === "choice5") { // Do you want the file from the receptionist
 			$("#nextbtn").hide();
-			choice1.innerHTML = "Yes, please.";
+			choice1.innerHTML = "Yes, that would be great. Thank you.";
 			$("#choice1").show();
 			choice2.innerHTML = "[Nod at Donna.]";
-			$("#choice2").show();
+			$("#choice2").hide();
 			choice3.innerHTML = "No.";
 			$("#choice3").show();
-			choice4.innerHTML = "[Shake your head.]";
+			choice4.innerHTML = "[Stare at Donna.]";
 			$("#choice4").show();
 			$("#choicebtns").fadeIn(400);
 			$('#choice1').on("click", function() {
@@ -498,25 +582,30 @@ window.onload = function () {
 
 		if (gametext[gamestate].event === "choice7") { // Respond to CEO
 			$("#nextbtn").hide();
-			if (gamechoice[4] === 1 || gamechoice[4] === 2) {
-				choice1.innerHTML = "My team is on track. I've sent you updates.";
-			} else {
-				choice1.innerHTML = "I will review this again and send an email.";
-			}
+			// if (gamechoice[4] === 1) {
+			// 	choice1.innerHTML = "My team is on track. We’re planning the next steps now. I’ve sent you updates.";
+			// } else {
+			// 	choice1.innerHTML = "I will review this again and send an email by 5pm today.";
+			// }
+			// $("#choice1").show();
+			// if (gamechoice[4] === 1) {
+			// 	choice2.innerHTML = "Sent the email.";
+			// } else {
+			// 	choice2.innerHTML = "I'll email you.";
+			// }
+			// $("#choice2").show();
+			choice1.innerHTML = "My team is on track. We’re planning the next steps now. I’ve sent you updates.";
 			$("#choice1").show();
-			if (gamechoice[4] === 1 || gamechoice[4] === 2) {
-				choice2.innerHTML = "Sent the email.";
-			} else {
-				choice2.innerHTML = "I'll email you.";
-			}
+			choice2.innerHTML = "I will review this again and send an email by 5pm today.";
 			$("#choice2").show();
-			choice3.innerHTML = "[Leave the room]";
+			choice3.innerHTML = "I’ll send an email later.";
 			$("#choice3").show();
-			$("#choice4").hide();
+			choice4.innerHTML = "[Leave the room]";
+			$("#choice4").show();
 			$("#choicebtns").fadeIn(400);
 			$('#choice1').on("click", function() {
 				gamechoice[6] = 1;
-				wordcount += 9;
+				wordcount += 15;
 				gametext[gamestate].header = "";
 				gametext[gamestate].text = "The CEO seems a little taken aback by the length of your response. He nods in thanks, having used up all his words on the presentation.";
 				nextStep();
@@ -524,7 +613,15 @@ window.onload = function () {
 			});
 			$('#choice2').on("click", function() {
 				gamechoice[6] = 2;
-				wordcount += 3;
+				wordcount += 12;
+				gametext[gamestate].header = "";
+				gametext[gamestate].text = "The CEO nods curtly and walks out of the room. The meeting is adjourned.";
+				nextStep();
+				clearListeners();
+			});
+			$('#choice3').on("click", function() {
+				gamechoice[6] = 3;
+				wordcount += 5;
 				gametext[gamestate].header = "";
 				gametext[gamestate].text = "The CEO nods curtly and walks out of the room. The meeting is adjourned.";
 				nextStep();
@@ -543,7 +640,7 @@ window.onload = function () {
 			$("#nextbtn").hide();
 			choice1.innerHTML = "Give me a hotdog with mustard and relish.";
 			$("#choice1").show();
-			choice2.innerHTML = "One hotdog with relish, please.";
+			choice2.innerHTML = "One hotdog with relish, mustard... ketchup.";
 			$("#choice2").show();
 			choice3.innerHTML = "Dog with ketchup.";
 			$("#choice3").show();
@@ -560,7 +657,7 @@ window.onload = function () {
 			});
 			$('#choice2').on("click", function() {
 				gamechoice[7] = 2;
-				wordcount += 5;
+				wordcount += 6;
 				gametext[gamestate].header = "Hot Dog Guy";
 				gametext[gamestate].text = "Sure thing. Two dollars.";
 				nextStep();
@@ -588,9 +685,9 @@ window.onload = function () {
 			$("#nextbtn").hide();
 			choice1.innerHTML = "Mustard and relish, thanks.";
 			$("#choice1").show();
-			choice2.innerHTML = "Just relish.";
+			choice2.innerHTML = "Just relish, thanks.";
 			$("#choice2").show();
-			choice3.innerHTML = "Ketchup.";
+			choice3.innerHTML = "All ketchup.";
 			$("#choice3").show();
 			choice4.innerHTML = "[Shake your head no.]";
 			$("#choice4").show();
@@ -605,7 +702,7 @@ window.onload = function () {
 			});
 			$('#choice2').on("click", function() {
 				gamechoice[8] = 2;
-				wordcount += 2;
+				wordcount += 3;
 				gametext[gamestate].header = "Hot Dog Guy";
 				gametext[gamestate].text = "Sure.";
 				nextStep();
@@ -613,7 +710,7 @@ window.onload = function () {
 			});
 			$('#choice3').on("click", function() {
 				gamechoice[8] = 3;
-				wordcount += 1;
+				wordcount += 2;
 				gametext[gamestate].header = "Hot Dog Guy";
 				gametext[gamestate].text = "Sure.";
 				nextStep();
@@ -635,7 +732,7 @@ window.onload = function () {
 			$("#choice1").show();
 			choice2.innerHTML = "[Nod your head yes.]";
 			$("#choice2").show();
-			choice3.innerHTML = "[Shake your head no.]";
+			choice3.innerHTML = "No, I'm busy.";
 			$("#choice3").show();
 			$("#choice4").hide();
 			$("#choicebtns").fadeIn(400);
@@ -656,6 +753,7 @@ window.onload = function () {
 			});
 			$('#choice3').on("click", function() {
 				gamechoice[9] = 3;
+				wordcount += 3;
 				gametext[gamestate].header = "Homeless Man";
 				gametext[gamestate].text = "These are dark times, friend. There's no point in being rude.";
 				nextStep();
@@ -666,18 +764,18 @@ window.onload = function () {
 		if (gametext[gamestate].event === "choice11") { // What's on your mind?
 			clearListeners();
 			$("#nextbtn").hide();
-			choice1.innerHTML = "I've been thinking too much lately.";
+			choice1.innerHTML = "I’ve been thinking too much lately. The days and nights are blending together.";
 			$("#choice1").show();
-			choice2.innerHTML = "I feel like I'm being watched.";
+			choice2.innerHTML = "It’s the constant reminders of who I used to be. I remember too much.";
 			$("#choice2").show();
-			choice3.innerHTML = "Nothing, I'm alright. Thanks though.";
+			choice3.innerHTML = "Do I? No, I’m alright. Thanks though.";
 			$("#choice3").show();
 			choice4.innerHTML = "You. My lunch. No.";
 			$("#choice4").show();
 			$("#choicebtns").fadeIn(400);
 			$('#choice1').on("click", function() {
 				gamechoice[10] = 1;
-				wordcount += 6;
+				wordcount += 13;
 				gametext[gamestate].header = "Homeless Man";
 				gametext[gamestate].text = "Better out than in, I always say. Speak your mind and it will be free, eh?";
 				nextStep();
@@ -685,7 +783,7 @@ window.onload = function () {
 			});
 			$('#choice2').on("click", function() {
 				gamechoice[10] = 2;
-				wordcount += 6;
+				wordcount += 14;
 				gametext[gamestate].header = "Homeless Man";
 				gametext[gamestate].text = "Hah. &quotFeel like&quot. They're watching us, listening to us, right now. You must be daft if you believe otherwise.";
 				nextStep();
@@ -693,7 +791,7 @@ window.onload = function () {
 			});
 			$('#choice3').on("click", function() {
 				gamechoice[10] = 3;
-				wordcount += 5;
+				wordcount += 7;
 				gametext[gamestate].header = "Homeless Man";
 				gametext[gamestate].text = "Better out than in, I always say. Speak your mind and it will be free, eh?";
 				nextStep();
@@ -712,16 +810,16 @@ window.onload = function () {
 		if (gametext[gamestate].event === "choice12") { // What's on your mind?
 			clearListeners();
 			$("#nextbtn").hide();
-			choice1.innerHTML = "Sure, I could use some advice.";
+			choice1.innerHTML = "Yeah, sure. I could use some advice.";
 			$("#choice1").show();
-			choice2.innerHTML = "No thanks. Got to go.";
+			choice2.innerHTML = "No. I’ve got to go now.";
 			$("#choice2").show();
 			$("#choice3").hide();
 			$("#choice4").hide();
 			$("#choicebtns").fadeIn(400);
 			$('#choice1').on("click", function() {
 				gamechoice[11] = 1;
-				wordcount += 6;
+				wordcount += 7;
 				gametext[gamestate].header = "";
 				gametext[gamestate].text = "Your response seems to take him by surprise. He stares at you, stunned for a second, before breaking into a smile that shines through the dirt and grit caking his face.";
 				nextStep();
@@ -729,7 +827,7 @@ window.onload = function () {
 			});
 			$('#choice2').on("click", function() {
 				gamechoice[11] = 2;
-				wordcount += 5;
+				wordcount += 6;
 				gametext[gamestate].header = "";
 				gametext[gamestate].text = "His gaze is locked onto you, and for a second he looks like he can see straight through you. He gives a thick, chesty cough.";
 				nextStep();
@@ -740,9 +838,9 @@ window.onload = function () {
 		if (gametext[gamestate].event === "choice13") { // Aardvark Pitch?
 			clearListeners();
 			$("#nextbtn").hide();
-			choice1.innerHTML = "Oh man. Was that today?";
+			choice1.innerHTML = "Oh man. Was that today? It completely slipped my mind. ";
 			$("#choice1").show();
-			choice2.innerHTML = "No, I don't think so.";
+			choice2.innerHTML = "Today? Are you sure? I don’t think so";
 			$("#choice2").show();
 			choice3.innerHTML = "[Stare at Donna.]";
 			$("#choice3").show();
@@ -750,7 +848,7 @@ window.onload = function () {
 			$("#choicebtns").fadeIn(400);
 			$('#choice1').on("click", function() {
 				gamechoice[12] = 1;
-				wordcount += 5;
+				wordcount += 10;
 				gametext[gamestate].header = "";
 				gametext[gamestate].text = "Donna's eyes widen and she hurriedly gestures towards the door, signalling for me to get out of there fast.";
 				nextStep();
@@ -758,7 +856,7 @@ window.onload = function () {
 			});
 			$('#choice2').on("click", function() {
 				gamechoice[12] = 2;
-				wordcount += 5;
+				wordcount += 8;
 				gametext[gamestate].header = "";
 				gametext[gamestate].text = "Donna's eyes widen and she hurriedly gestures towards the door, signalling for me to get out of there fast.";
 				nextStep();
@@ -802,17 +900,17 @@ window.onload = function () {
 		if (gametext[gamestate].event === "choice15") { // Greeting Travis in his Uber
 			clearListeners();
 			$("#nextbtn").hide();
-			choice1.innerHTML = "Hey, how's it going?";
+			choice1.innerHTML = "Hey, how’s it going? Could you try rush to get there in 5?";
 			$("#choice1").show();
-			choice2.innerHTML = "How're you?";
+			choice2.innerHTML = "How’re you? [Gesture to your watch] I’d appreciate a faster ride if possible.";
 			$("#choice2").show();
-			choice3.innerHTML = "[Get in the car.]";
+			choice3.innerHTML = "[Get in the car silently.]";
 			$("#choice3").show();
 			$("#choice4").hide();
 			$("#choicebtns").fadeIn(400);
 			$('#choice1').on("click", function() {
 				gamechoice[14] = 1;
-				wordcount += 4;
+				wordcount += 13;
 				gametext[gamestate].header = "";
 				gametext[gamestate].text = "Travis looks at you funny and shakes his head, making a zipping motion over his lips.";
 				nextStep();
@@ -820,7 +918,7 @@ window.onload = function () {
 			});
 			$('#choice2').on("click", function() {
 				gamechoice[14] = 2;
-				wordcount += 2;
+				wordcount += 9;
 				gametext[gamestate].header = "";
 				gametext[gamestate].text = "Travis looks at you funny and shakes his head, making a zipping motion over his lips.";
 				nextStep();
@@ -838,9 +936,9 @@ window.onload = function () {
 		if (gametext[gamestate].event === "choice16") { // Presentation start
 			clearListeners();
 			$("#nextbtn").hide();
-			choice1.innerHTML = "Okay guys, I've got some good news and some bad news.";
+			choice1.innerHTML = "I’ve got some bad news, so brace yourselves.";
 			$("#choice1").show();
-			choice2.innerHTML = "I'm going to be blunt.";
+			choice2.innerHTML = "I’m just going to be blunt.";
 			$("#choice2").show();
 			choice3.innerHTML = "[Remain silent and use the slides.]";
 			$("#choice3").show();
@@ -848,7 +946,7 @@ window.onload = function () {
 			$("#choicebtns").fadeIn(400);
 			$('#choice1').on("click", function() {
 				gamechoice[15] = 1;
-				wordcount += 11;
+				wordcount += 8;
 				gametext[gamestate].header = "";
 				gametext[gamestate].text = "You watch their faces fall as they see graph after graph of negative consumer sentiment.";
 				nextStep();
@@ -856,7 +954,7 @@ window.onload = function () {
 			});
 			$('#choice2').on("click", function() {
 				gamechoice[15] = 2;
-				wordcount += 5;
+				wordcount += 6;
 				gametext[gamestate].header = "";
 				gametext[gamestate].text = "You watch their faces fall as they see graph after graph of negative consumer sentiment.";
 				nextStep();
@@ -874,18 +972,18 @@ window.onload = function () {
 		if (gametext[gamestate].event === "choice17") { // Presentation part two
 			clearListeners();
 			$("#nextbtn").hide();
-			choice1.innerHTML = "There is this small segment that we can look at...";
+			choice1.innerHTML = "There is this small segment we can look at... though it’s not the most optimistic-looking numbers.. ";
 			$("#choice1").show();
-			choice2.innerHTML = "It's not all bad...";
+			choice2.innerHTML = "It’s not all bad if you take a look at this segment...";
 			$("#choice2").show();
-			choice3.innerHTML = "Nobody's buying.";
+			choice3.innerHTML = "Clearly, nobody’s buying.";
 			$("#choice3").show();
 			choice4.innerHTML = "[Flip on to the next slides.]";
 			$("#choice4").show();
 			$("#choicebtns").fadeIn(400);
 			$('#choice1').on("click", function() {
 				gamechoice[16] = 1;
-				wordcount += 9;
+				wordcount += 16;
 				gametext[gamestate].header = "";
 				gametext[gamestate].text = "The CTO is fiddling with his pencil, trying to get a broken bit of graphite out.";
 				nextStep();
@@ -893,7 +991,7 @@ window.onload = function () {
 			});
 			$('#choice2').on("click", function() {
 				gamechoice[16] = 2;
-				wordcount += 5;
+				wordcount += 12;
 				gametext[gamestate].header = "";
 				gametext[gamestate].text = "The CTO is fiddling with his pencil, trying to get a broken bit of graphite out.";
 				nextStep();
@@ -901,7 +999,7 @@ window.onload = function () {
 			});
 			$('#choice3').on("click", function() {
 				gamechoice[16] = 3;
-				wordcount += 2;
+				wordcount += 3;
 				gametext[gamestate].header = "";
 				gametext[gamestate].text = "The CTO is fiddling with his pencil, trying to get a broken bit of graphite out.";
 				nextStep();
@@ -919,7 +1017,7 @@ window.onload = function () {
 		if (gametext[gamestate].event === "choice18") { // Presentation start
 			clearListeners();
 			$("#nextbtn").hide();
-			choice1.innerHTML = "And that's why we would recommend exiting the market.";
+			choice1.innerHTML = "We recommend exiting the market.";
 			$("#choice1").show();
 			choice2.innerHTML = "It's time.";
 			$("#choice2").show();
@@ -929,7 +1027,7 @@ window.onload = function () {
 			$("#choicebtns").fadeIn(400);
 			$('#choice1').on("click", function() {
 				gamechoice[17] = 1;
-				wordcount += 9;
+				wordcount += 5;
 				gametext[gamestate].header = "";
 				gametext[gamestate].text = "The CEO heaves a sigh. The CFO and the CTO notice you're done and tune back in.";
 				nextStep();
@@ -955,7 +1053,7 @@ window.onload = function () {
 		if (gametext[gamestate].event === "choice19") { // Goodbye to CEO
 			clearListeners();
 			$("#nextbtn").hide();
-			choice1.innerHTML = "Thank you.";
+			choice1.innerHTML = "Sure, thanks.";
 			$("#choice1").show();
 			choice2.innerHTML = "[Smile, nod and leave.]";
 			$("#choice2").show();
@@ -979,6 +1077,24 @@ window.onload = function () {
 			});
 		}
 
+		if (gametext[gamestate].event === "choice20a") { // Where to?
+			clearListeners();
+			$("#nextbtn").hide();
+			choice1.innerHTML = "Crossings cemetery.";
+			$("#choice1").show();
+			$("#choice2").hide();
+			$("#choice3").hide();
+			$("#choice4").hide();
+			$("#choicebtns").fadeIn(400);
+			$('#choice1').on("click", function() {
+				wordcount += 2;
+				gametext[gamestate].header = "";
+				gametext[gamestate].text = "The driver grunts and starts to pull off. The taxi drives into the night. Silence washes over the car for a few minutes. Until...";
+				nextStep();
+				clearListeners();
+			});
+		}
+
 		if (gametext[gamestate].event === "choice20") { // Cab driver 1
 			clearListeners();
 			$("#nextbtn").hide();
@@ -987,7 +1103,7 @@ window.onload = function () {
 			choice2.innerHTML = "Aren't they all?";
 			$("#choice2").show();
 			choice3.innerHTML = "[Shake your head.]";
-			$("#choice3").show();
+			$("#choice3").hide();
 			choice4.innerHTML = "[Pretend that you have run out of words.]";
 			$("#choice4").show();
 			$("#choicebtns").fadeIn(400);
@@ -1010,14 +1126,14 @@ window.onload = function () {
 			$('#choice3').on("click", function() {
 				gamechoice[19] = 3;
 				gametext[gamestate].header = "Cab Driver";
-				gametext[gamestate].text = "... Okay. Suit yourself.";
+				gametext[gamestate].text = "Alright.";
 				nextStep();
 				clearListeners();
 			});
 			$('#choice4').on("click", function() {
 				gamechoice[19] = 4
 				gametext[gamestate].header = "Cab Driver";
-				gametext[gamestate].text = "Oh. Yeah, that was me yesterday too.";
+				gametext[gamestate].text = "Oh. Yeah. That was me yesterday.";
 				nextStep();
 				clearListeners();
 			});
@@ -1030,7 +1146,7 @@ window.onload = function () {
 			$("#choice1").show();
 			choice2.innerHTML = "I think we have more meaningful connections now.";
 			$("#choice2").show();
-			choice3.innerHTML = "Well... [Shrug]";
+			choice3.innerHTML = "Well... [Shrug.]";
 			$("#choice3").show();
 			choice4.innerHTML = "[Nod and remain silent.]";
 			$("#choice4").show();
@@ -1132,11 +1248,35 @@ window.onload = function () {
 			})	
 		}
 		if (gametext[gamestate].event === "fin") {
+			// sadMusic.fade(1,0,1000);
 			$("#nextbtn").hide();
-			$("#text").hide();
-			text.innerHTML = "THE END. <br><em>Thank you for playing!</em>"
-			$("#text").css("font-size", "32px");
-			$("#text").fadeIn(2000);
+			$("#text").fadeOut(3000);
+			setTimeout(function(){
+				text.innerHTML = "Written by <br><em>Sharmaine Sie<br>Leonard Chow</em>"
+				$("#text").css("font-size", "32px");
+				$("#text").fadeIn(3000);
+			},3000)
+			setTimeout(function(){
+				$("#text").fadeOut(2000);
+			},6000)
+			setTimeout(function(){
+				text.innerHTML = "Art design and assets by <br><em>Samuel Cho<br>Leonard Chow</em>"
+				$("#text").fadeIn(3000);
+			},8000)
+			setTimeout(function(){
+				$("#text").fadeOut(2000);
+			},11000)
+			setTimeout(function(){
+				text.innerHTML = "Programming and sound by <br><em>Keith Chia</em>"
+				$("#text").fadeIn(3000);
+			},13000)
+			setTimeout(function(){
+				$("#text").fadeOut(2000);
+			},15000)
+			setTimeout(function(){
+				text.innerHTML = "THE END. <br><em>Thank you for playing!</em>"
+				$("#text").fadeIn(3000);
+			},18000)
 		}
 	}
 
@@ -1179,18 +1319,18 @@ window.onload = function () {
 
 	// CONTENT ----------------------------------
 	push("", "", "", "");
-	push("", "", "", "&quot;In an effort to get people to look into each other's eyes more,");
+	push("start", "", "", "&quot;In an effort to get people to look into each other's eyes more,");
 	push("addin", "", "", "and also to appease the mutes,");
 	push("", "", "", "the government has decided");
 	push("addin", "", "", "to allot each person exactly one hundred and sixty-seven words, per day.&quot;");
 	push("", "", "", "- <em>The Quiet World</em>, by Jeffrey McDaniel.");
-	push("blackout", "", "", "");
-	push("showBottomPanel", "","Alarm","*RING*");
+	push("blackout1", "", "", "");
+	push("awaken", "","Alarm","*RING*");
 	push("", "","Alarm","*RING RING*");
 	push("choice1", "","Alarm","*RING RING RING*");
 	push("unchoice", "","",""); // RESULT FOR CHOICE 1 GOES HERE.
-	push("bg1", "","","The incessant noise of the alarm is drilling a hole in your head. Before you start getting ready, you switch the alarm to something a little less annoying.");
-	push("addin", "", "","The radio is playing quiet instrumental jazz music. Once every few minutes, a single word is sung, lovingly and with care.");
+	push("addin", "","","The incessant noise of the alarm is drilling a hole in your head. Before you start getting ready, you switch the alarm to something a little less annoying.");
+	push("bg1", "", "","The radio is playing quiet instrumental jazz music. Once every few minutes, a single word is sung, lovingly and with care.");
 	push("", "","","&#9835; <em>Love</em> &#9834");
 	push("addin", "","","...");
 	push("", "","","&#9833 <em>Hope</em> &#9835");
@@ -1328,10 +1468,13 @@ window.onload = function () {
 	push("", "", "", "You step out onto the pavement. The sun has set and traffic is getting heavier. The only noise in the city nowadays is the sound of cars whizzing by.");
 	push("addin", "", "", "Hardly anyone talks outdoors anymore.");
 	push("", "", "", "A bird on a nearby tree chips nonchalantly.");
+	push("addin", "", "", "There's one more thing left to do today.");
 	push("", "", "", "Prices for Uber Silent are ridiculously high right now. You flag an approaching cab, hoping that it would be a silent ride.");
 	push("bg13", "", "", "");
 	push("", "", "", "The cab is dirty, with worn leather and frayed seatbelts. Your cab driver has a shiny bald spot that glares at you.");
 	push("addin", "", "", "Isn't it night time? How is it still so shiny?");
+	push("choice20a", "", "Cab Driver", "Where to?");
+	push("unchoice", "", "", ""); // RESULT FOR CHOICE 20a GOES HERE
 	push("choice20", "", "Cab Driver", "Long day?");
 	push("unchoice", "", "", ""); // RESULT FOR CHOICE 20 GOES HERE
 	push("", "", "", "You ride in silence. The world seems normal from inside the car.");
@@ -1354,7 +1497,7 @@ window.onload = function () {
 	push("bg14", "", "", "");
 	push("", "", "", "People walk silently by, glued to their phones.");
 	push("addin", "", "", "The dogs bark at each other, unencumbered by the mandate.");
-	push("", "", "", "You continue walking on silently.");
+	push("sadmusic", "", "", "You continue walking on silently.");
 	push("", "", "", "You're here.");
 	push("addin", "", "", "You know exactly how much you have left. You've been counting.");
 	push("end", "", "", "");
