@@ -21,14 +21,14 @@
 
 #char {
 	width: 100vw;
-	height: 70vh;
+	height: 65vh;
 	position: absolute;
 }
 
 #char-mid {
-	height: 100%;
+	height: 90%;
 	position: absolute;
-	top: 0;
+	bottom: 0;
 	left: 0;
 	right: 0;
 	margin: auto;
@@ -36,7 +36,7 @@
 }
 
 #char-left {
-	height: 50%;
+	height: 100%;
 	position: absolute;
 	top: 0;
 	bottom: 0;
@@ -47,7 +47,7 @@
 }
 
 #char-right {
-	height: 50%;
+	height: 100%;
 	position: absolute;
 	top: 0;
 	bottom: 0;
