@@ -16,6 +16,8 @@ window.onload = function () {
 	var charmid = document.getElementById("char-mid");
 	var charleft = document.getElementById("char-left");
 	var charright = document.getElementById("char-right");
+	var mutebtn = document.getElementById("mutebtn");
+	var mutebtndiv = document.getElementById("mutebtndiv");
 
 	// DECLARE STATE TRACKING VARIABLES -------------------------
 	var gamestate = 1;
@@ -43,6 +45,7 @@ window.onload = function () {
 		}
 		console.log(newtext);
 	}
+	var sound = true;
 
 	// DECLARE UTILITY FUNCTIONS FOR LOADING TEXT, CLEARING LISTENERS ETC ----------------------------
 	var push = function(event, char, header, text) {
@@ -60,6 +63,17 @@ window.onload = function () {
 		$("#choice3").off('click');
 		$("#choice4").off('click');
 	}
+
+	$("#unmutedbtn").on("click", function(){
+		Howler.volume(0);
+		$("#unmutedbtn").hide();
+		$("#mutedbtn").show();
+	})
+	$("#mutedbtn").on("click", function(){
+		Howler.volume(1);
+		$("#unmutedbtn").show();
+		$("#mutedbtn").hide();
+	})
 
 	// DECLARE VARIABLES TO BIND AUDIO FILES----------------------------
 	var crowdSound = new Howl({
@@ -133,7 +147,7 @@ window.onload = function () {
 		}
 		if (gametext[gamestate].event === "sadmusic") {
 			sadMusic.play();
-			sadMusic.fade(0,1,1000);
+			sadMusic.fade(0,1,5000);
 			$("#nextbtn").fadeIn(400);	
 		}
 
@@ -143,19 +157,6 @@ window.onload = function () {
 			$("#skybox").css("background-image", "url(assets/img/room.jpg)");
 			$("#background").fadeOut(3000);
 		}
-
-		// if (gametext[gamestate].event === "bg2") {
-		// 	songSound.fade(1,0,1000);
-		// 	$("#bottompanel").hide()
-		// 	$("#nextbtn").hide()
-		// 	$("#skybox").css("background-image", "url(assets/img/coffeeshop.jpg)").show();
-		// 	$("#background").fadeOut(2000);
-		// 	setTimeout(function() {
-		// 		$("#nextbtn").fadeIn(400);
-		// 		$("#bottompanel").fadeIn(400);
-		// 		nextStep();
-		// 	}, 2000);
-		// }
 
 		if (gametext[gamestate].event === "bg2") {
 			songSound.fade(1,0,1000);
@@ -838,9 +839,9 @@ window.onload = function () {
 		if (gametext[gamestate].event === "choice13") { // Aardvark Pitch?
 			clearListeners();
 			$("#nextbtn").hide();
-			choice1.innerHTML = "Oh man. Was that today? It completely slipped my mind. ";
+			choice1.innerHTML = "Oh man. Was that today? It completely slipped my mind.";
 			$("#choice1").show();
-			choice2.innerHTML = "Today? Are you sure? I don’t think so";
+			choice2.innerHTML = "Today? Are you sure? I don’t think so.";
 			$("#choice2").show();
 			choice3.innerHTML = "[Stare at Donna.]";
 			$("#choice3").show();
@@ -902,7 +903,7 @@ window.onload = function () {
 			$("#nextbtn").hide();
 			choice1.innerHTML = "Hey, how’s it going? Could you try rush to get there in 5?";
 			$("#choice1").show();
-			choice2.innerHTML = "How’re you? [Gesture to your watch] I’d appreciate a faster ride if possible.";
+			choice2.innerHTML = "How’re you? I’d appreciate a faster ride if possible. [Gesture to your watch.]";
 			$("#choice2").show();
 			choice3.innerHTML = "[Get in the car silently.]";
 			$("#choice3").show();
@@ -985,7 +986,8 @@ window.onload = function () {
 				gamechoice[16] = 1;
 				wordcount += 16;
 				gametext[gamestate].header = "";
-				gametext[gamestate].text = "The CTO is fiddling with his pencil, trying to get a broken bit of graphite out.";
+				charmid.src = "assets/img/cfo.gif";
+				gametext[gamestate].text = "The CFO is fiddling with his pencil, trying to get a broken bit of graphite out.";
 				nextStep();
 				clearListeners();
 			});
@@ -993,7 +995,8 @@ window.onload = function () {
 				gamechoice[16] = 2;
 				wordcount += 12;
 				gametext[gamestate].header = "";
-				gametext[gamestate].text = "The CTO is fiddling with his pencil, trying to get a broken bit of graphite out.";
+				charmid.src = "assets/img/cfo.gif";
+				gametext[gamestate].text = "The CFO is fiddling with his pencil, trying to get a broken bit of graphite out.";
 				nextStep();
 				clearListeners();
 			});
@@ -1001,14 +1004,16 @@ window.onload = function () {
 				gamechoice[16] = 3;
 				wordcount += 3;
 				gametext[gamestate].header = "";
-				gametext[gamestate].text = "The CTO is fiddling with his pencil, trying to get a broken bit of graphite out.";
+				charmid.src = "assets/img/cfo.gif";
+				gametext[gamestate].text = "The CFO is fiddling with his pencil, trying to get a broken bit of graphite out.";
 				nextStep();
 				clearListeners();
 			});
 			$('#choice4').on("click", function() {
 				gamechoice[16] = 4;
 				gametext[gamestate].header = "";
-				gametext[gamestate].text = "The CTO is fiddling with his pencil, trying to get a broken bit of graphite out.";
+				charmid.src = "assets/img/cfo.gif";
+				gametext[gamestate].text = "The CFO is fiddling with his pencil, trying to get a broken bit of graphite out.";
 				nextStep();
 				clearListeners();
 			});
@@ -1212,18 +1217,64 @@ window.onload = function () {
 		}
 	}
 
+	// CHARACTER GIF FUCTION IS HERE
 	var charCheck = function() {
 		if (gametext[gamestate].char === 'clearchars') {
 			$("#char-mid").fadeOut(300);
 			$("#char-left").fadeOut(300);
 			$("#char-right").fadeOut(300);
 		}
-		if (gametext[gamestate].char === 'barista-mid') {
+		if (gametext[gamestate].char === 'barista') {
 			charmid.src = "assets/img/barista.gif";
+			$("#char-mid").fadeIn(400);
+		}
+		if (gametext[gamestate].char === 'baristaserve') {
+			charmid.src = "assets/img/baristaserve.gif";
+			$("#char-mid").fadeIn(400);
+		}
+		if (gametext[gamestate].char === 'donna') {
+			charmid.src = "assets/img/donna.gif";
+			$("#char-mid").fadeIn(400);
+		}
+		if (gametext[gamestate].char === 'donnafile') {
+			charmid.src = "assets/img/donnafile.gif";
+			$("#char-mid").fadeIn(400);
+		}
+		if (gametext[gamestate].char === 'ceotable') {
+			charmid.src = "assets/img/ceotable.gif";
+			$("#char-mid").fadeIn(400);
+		}
+		if (gametext[gamestate].char === 'hotdogguy') {
+			charmid.src = "assets/img/hotdogguy.gif";
+			$("#char-mid").fadeIn(400);
+		}
+		if (gametext[gamestate].char === 'hobo') {
+			charmid.src = "assets/img/hobo.gif";
+			$("#char-mid").fadeIn(400);
+		}
+		if (gametext[gamestate].char === 'ceo') {
+			charmid.src = "assets/img/ceo.gif";
+			$("#char-mid").fadeIn(400);
+		}
+		if (gametext[gamestate].char === 'cto') {
+			charmid.src = "assets/img/cto.gif";
+			$("#char-mid").fadeIn(400);
+		}
+		if (gametext[gamestate].char === 'cfo') {
+			charmid.src = "assets/img/cfo.gif";
+			$("#char-mid").fadeIn(400);
+		}
+		if (gametext[gamestate].char === 'driver') {
+			charmid.src = "assets/img/driver.gif";
+			$("#char-mid").fadeIn(400);
+		}
+		if (gametext[gamestate].char === 'tombstone') {
+			charmid.src = "assets/img/tombstone.gif";
 			$("#char-mid").fadeIn(400);
 		}
 	}
 
+	// FUNCTION FOR END OF GAME
 	var endCheck = function() {
 		if (gametext[gamestate].event === "end") {
 			console.log("ending reached")
@@ -1343,50 +1394,51 @@ window.onload = function () {
 	push("addin", "","","Sometimes it's the thought of that first cup of coffee that keeps you alive.");
 	push("bg2", "","","");
 	push("", "","","You walk into the coffee house, and see two people ahead in line. You get in line, but it's clear that you won't have to wait long. The line is moving quickly today.");
-	push("", "barista-mid","","The barista waves at the customer that's first in line.");
+	push("", "barista","","The barista waves at the customer that's first in line.");
 	push("addin", "", "","He nods and points at a pitcher of water behind the counter.");
 	push("", "","","The barista quietly gives him a quick thumbs up, before waving to the next person in line, in front of you.");
 	push("addin", "","","The guy in front of you points at the menu, then taps the glass on the pastry display, pointing to a bagel.");
 	push("", "","","And just like that, it's your turn.");
 	push("choice2", "","","The barista waves at you.");
-	push("unchoice", "","",""); // RESULT FOR CHOICE 2 GOES HERE.
+	push("unchoice", "baristaserve","",""); // RESULT FOR CHOICE 2 GOES HERE.
 	push("choice3", "","","The barista looks you in the eye for a split second, waiting if there's anything else you need.");
-	push("unchoice", "","",""); //RESULT FOR CHOICE 3 GOES HERE.
+	push("unchoice", "barista","",""); //RESULT FOR CHOICE 3 GOES HERE.
 	push("addin", "clearchars","","You walk out of the coffee shop and make your way to the office, life-giving sustenance in hand."); 
 	push("bg3", "", "", "");
 	push("", "", "", "You walk through the double doors into the office. A few of your colleagues have already gotten in to work.");
-	push("addin", "", "", "Donna, the receptionist, is bright and sharp.");
+	push("addin", "donna", "", "Donna, the receptionist, is bright and sharp.");
 	push("choice4", "", "Donna", "Good morning!");
 	push("unchoice", "", "", ""); // RESULT FOR CHOICE 4 GOES HERE.
 	push("", "", "Donna", "Meeting's soon. Would you like the brief?");
-	push("choice5", "", "", "Donna slides the booklet onto the reception table. She looks at you expectantly.");
-	push("unchoice", "", "", ""); // RESULT FOR CHOICE 5 GOES HERE.
+	push("choice5", "donnafile", "", "Donna slides the booklet onto the reception table. She looks at you expectantly.");
+	push("unchoice", "donna", "", ""); // RESULT FOR CHOICE 5 GOES HERE.
 	push("addin", "", "", "You decide to head to the meeting directly.");
-	push("bg4", "", "", "");
+	push("bg4", "clearchars", "", "");
 	push("choice6", "", "", "Almost everyone is here already. They speak slowly and carefully.");
 	push("unchoice", "", "", ""); // RESULT FOR CHOICE 6 GOES HERE.
-	push("addin", "", "", "After a while, the CEO stands up and starts to give his presentation.");
-	push("blackout", "", "", "");
+	push("addin", "ceotable", "", "After a while, the CEO stands up and starts to give his presentation.");
+	push("blackout", "clearchars", "", "");
 	push("showBottomPanel", "", "", "...");
 	push("addin", "", "", "...");
 	push("bg5", "", "", "");
-	push("", "", "CEO", "... And that's the end of this week's meeting.");
+	push("", "ceotable", "CEO", "... And that's the end of this week's meeting.");
 	push("addin", "", "CEO", "Team leaders, what do you have for me? Let's go around the room.");
 	push("choice7", "", "", "Everyone takes turns speaking. Eventually, it's your turn.");
 	push("unchoice", "", "", ""); // RESULT FOR CHOICE 7 GOES HERE.
-	push("", "", "", "And with that, the meeting ends. You get back to your desk and put some stuff down before heading out for lunch.");
+	push("", "clearchars", "", "And with that, the meeting ends. You get back to your desk and put some stuff down before heading out for lunch.");
 	push("addin", "", "", "... You're starving.");
 	push("bg6", "", "", "");
-	push("", "", "", "You get out on the sidewalk and get to your usual hot dog cart. The hot dog guy immediately recognizes you.");
+	push("", "", "", "You get out on the sidewalk and get to your usual hot dog cart.");
+	push("addin", "hotdogguy", "", "The hot dog guy immediately recognizes you.");
 	push("choice8", "", "Hot Dog Guy", "Hey man.");
 	push("unchoice", "", "", ""); // RESULT FOR CHOICE 8 GOES HERE.
 	push("choice9", "", "", "The hot dog guy grunts and gestures towards the toppings."); 
 	push("unchoice", "", "", ""); // RESULT FOR CHOICE 9 GOES HERE.
-	push("", "", "", "You take the hot dog, stuff the money in the vendor's hand and walk off to find a place to eat your lunch.");
+	push("", "clearchars", "", "You take the hot dog, stuff the money in the vendor's hand and walk off to find a place to eat your lunch.");
 	push("bg7", "", "", "");
 	push("", "", "", "You walk until you find a bench and sit down. Freddie has been making these hotdogs ever since you started working here.");
 	push("addin", "", "", "They've never been much good, but you like them anyway.");
-	push("", "", "", "As you start eating, a homeless man shuffles towards you.");
+	push("", "hobo", "", "As you start eating, a homeless man shuffles towards you.");
 	push("addin", "", "", "He looks dishevelled and smells like old socks.");
 	push("choice10", "", "Homeless Man", "Spare some words, friend? Nobody gives me the time of day anymore.");
 	push("unchoice", "", "", ""); // RESULT FOR CHOICE 10 GOES HERE.
@@ -1410,7 +1462,7 @@ window.onload = function () {
 	push("unchoice", "", "", ""); // RESULT FOR CHOICE 12 GOES HERE. 
 	push("", "", "Homeless Man", "Sometimes, the best things in life are worth risking everything for.");
 	push("addin", "", "Homeless Man", "Make every word count.");
-	push("", "", "", "With that, the homeless man gets up and walks away, his smell lingering behind him.");
+	push("", "clearchars", "", "With that, the homeless man gets up and walks away, his smell lingering behind him.");
 	push("", "", "", "The homelessness problem has only gotten worse since the mandate.");
 	push("addin", "", "", "Worse still, they've become even more verbose than before.");
 	push("", "", "", "You toss your garbage in the trash and head back to the office.");
@@ -1418,12 +1470,12 @@ window.onload = function () {
 	push("bg8", "", "", "");
 	push("", "", "", "You walk back into the office.");
 	push("addin", "", "", "Everyone still seems to be out, except Donna. She always has her lunch at her table.");
-	push("choice13", "", "Donna", "Weren't you supposed to go with Jason for the Aardvark pitch?");
+	push("choice13", "donna", "Donna", "Weren't you supposed to go with Jason for the Aardvark pitch?");
 	push("unchoice", "", "", ""); // RESULT FOR CHOICE 13 GOES HERE
 	push("addin", "", "", "As I turn away from her, suddenly she calls out to me again.");
 	push("", "", "Donna", "Oh, no, wait! You're with the Chatter team, not Aardvark. That's later at two.");
 	push("addin", "", "Donna", "... Sorry.");
-	push("", "", "", "Sighing, you head back to your desk.");
+	push("", "clearchars", "", "Sighing, you head back to your desk.");
 	push("addin", "", "", "Donna's a good person, but she can be scatterbrained sometimes.");
 	push("", "", "", "You grab your files for the Chatter meeting and head out the door.");
 	push("addin", "", "", "Donna waves you off excitedly.");
@@ -1442,7 +1494,7 @@ window.onload = function () {
 	push("bg11", "", "", "");
 	push("", "", "", "You head in past reception, into the meeting room. They haven't had a receptionist since last year.");
 	push("addin", "", "", "The Chatter folks are waiting in the conference room.");
-	push("", "", "Chatter CEO", "Thank you for coming. We've gathered. Please.");
+	push("", "ceo", "Chatter CEO", "Thank you for coming. We've gathered. Please.");
 	push("", "", "", "The CEO gestures to the front of the room, where the projector connection is.");
 	push("addin", "", "", "You set up your presentation slides and get prepared.");
 	push("choice16", "", "", "It's time to begin.");
@@ -1450,19 +1502,19 @@ window.onload = function () {
 	push("addin", "", "", "It's becoming clearer and clearer where this presentation is heading.");
 	push("choice17", "", "", "You try to press on with the bad news...");
 	push("unchoice", "", "", ""); // RESULT FOR CHOICE 17 GOES HERE
-	push("addin", "", "", "The CTO fidgets idly, playing with his armrests.");
+	push("addin", "cto", "", "The CTO fidgets idly, playing with his armrests.");
 	push("", "", "", "It's clear that you've lost them both.");
-	push("choice18", "", "", "The CEO, however, is laser-focused on you.");
+	push("choice18", "ceo", "", "The CEO, however, is laser-focused on you.");
 	push("unchoice", "", "", ""); // RESULT FOR CHOICE 18 GOES HERE
-	push("addin", "", "", "The CFO's pencil is now out of graphite.");
-	push("", "", "CEO", "Well guys... thoughts?");
-	push("", "", "CFO", "With the numbers and graphs. Yeah.");
-	push("", "", "", "The CTO shrugs and nods at the CFO.");
-	push("", "", "", "The CEO turns back to you.");
+	push("addin", "cfo", "", "The CFO's pencil is now out of graphite.");
+	push("", "ceo", "CEO", "Well guys... thoughts?");
+	push("", "cfo", "CFO", "With the numbers and graphs. Yeah.");
+	push("", "cto", "", "The CTO shrugs and nods at the CFO.");
+	push("", "ceo", "", "The CEO turns back to you.");
 	push("addin", "", "", "He is clearly distressed.");
 	push("choice19", "", "CEO", "I did not think that it was this bad. We'll email.");
 	push("unchoice", "", "", ""); // RESULT FOR CHOICE 19 GOES HERE
-	push("", "", "", "You pack up and leave as they begin a fervent discussion, but with carefully picked words. You notice that the CTO still hasn't spoken, and instead types his thoughts down.");
+	push("", "clearchars", "", "You pack up and leave as they begin a fervent discussion, but with carefully picked words. You notice that the CTO still hasn't spoken, and instead types his thoughts down.");
 	push("addin", "", "", "Perhaps he's run out of words too.");
 	push("bg12", "", "", "");
 	push("", "", "", "You step out onto the pavement. The sun has set and traffic is getting heavier. The only noise in the city nowadays is the sound of cars whizzing by.");
@@ -1473,13 +1525,13 @@ window.onload = function () {
 	push("bg13", "", "", "");
 	push("", "", "", "The cab is dirty, with worn leather and frayed seatbelts. Your cab driver has a shiny bald spot that glares at you.");
 	push("addin", "", "", "Isn't it night time? How is it still so shiny?");
-	push("choice20a", "", "Cab Driver", "Where to?");
+	push("choice20a", "driver", "Cab Driver", "Where to?");
 	push("unchoice", "", "", ""); // RESULT FOR CHOICE 20a GOES HERE
 	push("choice20", "", "Cab Driver", "Long day?");
 	push("unchoice", "", "", ""); // RESULT FOR CHOICE 20 GOES HERE
-	push("", "", "", "You ride in silence. The world seems normal from inside the car.");
+	push("", "clearchars", "", "You ride in silence. The world seems normal from inside the car.");
 	push("addin", "", "", "You can pretend there are conversations going on elsewhere, drowned out by the hum of engines and exhausts.");
-	push("", "", "Cab Driver", "You know, I voted against the ban. Yeah, it sounded dumb, and it still doesn't make sense....");
+	push("", "driver", "Cab Driver", "You know, I voted against the ban. Yeah, it sounded dumb, and it still doesn't make sense....");
 	push("choice21", "", "Cab Driver", "... But here we are.");
 	push("unchoice", "", "", ""); // RESULT FOR CHOICE 21 GOES HERE
 	push("addin", "", "Cab Driver", "... But that was back when everyone was talking on their devices constantly and screaming at each other.");
@@ -1493,15 +1545,15 @@ window.onload = function () {
 	push("", "", "", "You point, telling him to turn in. A few people are out walking quietly, some with their dogs.");
 	push("addin", "", "", "People needed to find something to do with their time since the mandate made it difficult to hold conversations at home.");
 	push("", "", "", "The cab comes to a halt outside the gates. The cab driver points at the fare machine, turning and looking back at me.");
-	push("addin", "", "", "You pay him and get out of the cab.");
+	push("addin", "clearchars", "", "You pay him and get out of the cab.");
 	push("bg14", "", "", "");
 	push("", "", "", "People walk silently by, glued to their phones.");
 	push("addin", "", "", "The dogs bark at each other, unencumbered by the mandate.");
 	push("sadmusic", "", "", "You continue walking on silently.");
-	push("", "", "", "You're here.");
+	push("", "tombstone", "", "You're here.");
 	push("addin", "", "", "You know exactly how much you have left. You've been counting.");
 	push("end", "", "", "");
-	push("bg15", "", "", "");
+	push("bg15", "clearchars", "", "");
 	push("", "", "", "&quot;Late at night, I call my long distance lover, <br>proudly say <em>I only used fifty-nine today.</em>");
 	push("addin", "", "", "<em>I saved the rest for you.</em>&quot;")
 	push("", "", "", "&quot;When she doesn't respond, <br>I know she's used up all her words,")
