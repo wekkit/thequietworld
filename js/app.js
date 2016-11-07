@@ -20,7 +20,7 @@ window.onload = function () {
 	var mutebtndiv = document.getElementById("mutebtndiv");
 
 	// DECLARE STATE TRACKING VARIABLES -------------------------
-	var gamestate = 1;
+	var gamestate = 151;
 	// game starts at 1
 	// coffeeshop starts at 23
 	// office scene starts at 35
@@ -628,7 +628,7 @@ window.onload = function () {
 				nextStep();
 				clearListeners();
 			});
-			$('#choice3').on("click", function() {
+			$('#choice4').on("click", function() {
 				gamechoice[6] = 3;
 				gametext[gamestate].header = "";
 				gametext[gamestate].text = "You get up and leave the room. It's been easier to leave things unsaid ever since the mandate.";
@@ -1268,6 +1268,10 @@ window.onload = function () {
 			charmid.src = "assets/img/driver.gif";
 			$("#char-mid").fadeIn(400);
 		}
+		if (gametext[gamestate].char === 'driverfront') {
+			charmid.src = "assets/img/driverfront.png";
+			$("#char-mid").fadeIn(400);
+		}
 		if (gametext[gamestate].char === 'tombstone') {
 			charmid.src = "assets/img/tombstone.gif";
 			$("#char-mid").fadeIn(400);
@@ -1523,17 +1527,17 @@ window.onload = function () {
 	push("addin", "", "", "There's one more thing left to do today.");
 	push("", "", "", "Prices for Uber Silent are ridiculously high right now. You flag an approaching cab, hoping that it would be a silent ride.");
 	push("bg13", "", "", "");
-	push("", "", "", "The cab is dirty, with worn leather and frayed seatbelts. Your cab driver has a shiny bald spot that glares at you.");
+	push("", "driverfront", "", "The cab is dirty, with worn leather and frayed seatbelts. Your cab driver has a shiny bald spot that glares at you.");
 	push("addin", "", "", "Isn't it night time? How is it still so shiny?");
 	push("choice20a", "driver", "Cab Driver", "Where to?");
 	push("unchoice", "", "", ""); // RESULT FOR CHOICE 20a GOES HERE
-	push("choice20", "", "Cab Driver", "Long day?");
+	push("choice20", "driverfront", "Cab Driver", "Long day?");
 	push("unchoice", "", "", ""); // RESULT FOR CHOICE 20 GOES HERE
 	push("", "clearchars", "", "You ride in silence. The world seems normal from inside the car.");
 	push("addin", "", "", "You can pretend there are conversations going on elsewhere, drowned out by the hum of engines and exhausts.");
-	push("", "driver", "Cab Driver", "You know, I voted against the ban. Yeah, it sounded dumb, and it still doesn't make sense....");
-	push("choice21", "", "Cab Driver", "... But here we are.");
-	push("unchoice", "", "", ""); // RESULT FOR CHOICE 21 GOES HERE
+	push("", "driverfront", "Cab Driver", "You know, I voted against the ban. Yeah, it sounded dumb, and it still doesn't make sense....");
+	push("choice21", "driver", "Cab Driver", "... But here we are.");
+	push("unchoice", "driverfront", "", ""); // RESULT FOR CHOICE 21 GOES HERE
 	push("addin", "", "Cab Driver", "... But that was back when everyone was talking on their devices constantly and screaming at each other.");
 	push("choice22", "", "Cab Driver", "But...");
 	push("unchoice", "", "", ""); // RESULT FOR CHOICE 22 GOES HERE
@@ -1544,7 +1548,7 @@ window.onload = function () {
 	push("addin", "", "", "He's spent his last words on me.");
 	push("", "", "", "You point, telling him to turn in. A few people are out walking quietly, some with their dogs.");
 	push("addin", "", "", "People needed to find something to do with their time since the mandate made it difficult to hold conversations at home.");
-	push("", "", "", "The cab comes to a halt outside the gates. The cab driver points at the fare machine, turning and looking back at me.");
+	push("", "driver", "", "The cab comes to a halt outside the gates. The cab driver points at the fare machine, turning and looking back at me.");
 	push("addin", "clearchars", "", "You pay him and get out of the cab.");
 	push("bg14", "", "", "");
 	push("", "", "", "People walk silently by, glued to their phones.");
