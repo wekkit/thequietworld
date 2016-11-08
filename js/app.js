@@ -20,7 +20,7 @@ window.onload = function () {
 	var mutebtndiv = document.getElementById("mutebtndiv");
 
 	// DECLARE STATE TRACKING VARIABLES -------------------------
-	var gamestate = 151;
+	var gamestate = 1;
 	// game starts at 1
 	// coffeeshop starts at 23
 	// office scene starts at 35
@@ -1094,6 +1094,7 @@ window.onload = function () {
 			$('#choice1').on("click", function() {
 				wordcount += 2;
 				gametext[gamestate].header = "";
+				gametext[gamestate].char = "driver";
 				gametext[gamestate].text = "The driver grunts and starts to pull off. The taxi drives into the night. Silence washes over the car for a few minutes. Until...";
 				nextStep();
 				clearListeners();
@@ -1269,7 +1270,7 @@ window.onload = function () {
 			$("#char-mid").fadeIn(400);
 		}
 		if (gametext[gamestate].char === 'driverfront') {
-			charmid.src = "assets/img/driverfront.png";
+			charmid.src = "assets/img/driverfront.gif";
 			$("#char-mid").fadeIn(400);
 		}
 		if (gametext[gamestate].char === 'tombstone') {
@@ -1530,9 +1531,9 @@ window.onload = function () {
 	push("", "driverfront", "", "The cab is dirty, with worn leather and frayed seatbelts. Your cab driver has a shiny bald spot that glares at you.");
 	push("addin", "", "", "Isn't it night time? How is it still so shiny?");
 	push("choice20a", "driver", "Cab Driver", "Where to?");
-	push("unchoice", "", "", ""); // RESULT FOR CHOICE 20a GOES HERE
+	push("unchoice", "driver", "", ""); // RESULT FOR CHOICE 20a GOES HERE
 	push("choice20", "driverfront", "Cab Driver", "Long day?");
-	push("unchoice", "", "", ""); // RESULT FOR CHOICE 20 GOES HERE
+	push("unchoice", "driver", "", ""); // RESULT FOR CHOICE 20 GOES HERE
 	push("", "clearchars", "", "You ride in silence. The world seems normal from inside the car.");
 	push("addin", "", "", "You can pretend there are conversations going on elsewhere, drowned out by the hum of engines and exhausts.");
 	push("", "driverfront", "Cab Driver", "You know, I voted against the ban. Yeah, it sounded dumb, and it still doesn't make sense....");
