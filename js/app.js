@@ -1285,7 +1285,7 @@ window.onload = function () {
 			console.log("ending reached")
 			$("#nextbtn").hide();
 			$("#text").css("text-align", "center");
-			text.innerHTML = "You kneel in front of your lover's grave.<br>You have " + (167-wordcount) + " words remaining."
+			text.innerHTML = "You kneel.<br>You have " + (167-wordcount) + " words remaining."
 			$("#text").fadeIn(400);
 			$("#textinput").fadeIn(400);
 			create();
@@ -1294,7 +1294,7 @@ window.onload = function () {
 				$("#textinput").val(newtext.substring(0,counter));
 				if (newtext.charAt(counter) == " ") {
 					wordcount++;
-					text.innerHTML = "You kneel in front of your lover's grave.<br>You have " + (167-wordcount) + " words remaining."
+					text.innerHTML = "You kneel.<br>You have " + (167-wordcount) + " words remaining."
 					$("#title").html(167-wordcount);
 				}
 				counter++;
