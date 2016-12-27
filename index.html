@@ -10,24 +10,28 @@
 </head>
 <body>
 	<div id="skybox"></div>
-		<div id="background"></div>
-		<div id="char">
-			<img id="char-left" src="assets/img/barista.png" alt="">
-			<img id="char-mid" src="assets/img/barista.png" alt="">
-			<img id="char-right" src="assets/img/barista.png" alt="">
+	<div id="background"></div>
+	<div id="char">
+		<img id="char-left" src="" alt="">
+		<img id="char-mid" src="" alt="">
+		<img id="char-right" src="" alt="">
+	</div>
+	<div id="bottompanel">
+		<div id="header"></div>
+		<div id="text"></div>
+		<textarea id="textinput"></textarea>
+		<div class="btn-group btn-group-lg" role="group" id="choicebtns">
+			<button role="button" class="btn btn-default choicebtn" id="choice1"></button>
+			<button role="button" class="btn btn-default choicebtn" id="choice2"></button>
+			<button role="button" class="btn btn-default choicebtn" id="choice3"></button>
+			<button role="button" class="btn btn-default choicebtn" id="choice4"></button>
 		</div>
-		<div id="bottompanel">
-			<div id="header"></div>
-			<div id="text"></div>
-			<textarea id="textinput"></textarea>
-			<div class="btn-group btn-group-lg" role="group" id="choicebtns">
-				<button role="button" class="btn btn-default choicebtn" id="choice1"></button>
-				<button role="button" class="btn btn-default choicebtn" id="choice2"></button>
-				<button role="button" class="btn btn-default choicebtn" id="choice3"></button>
-				<button role="button" class="btn btn-default choicebtn" id="choice4"></button>
-			</div>
+	</div>
+	<div id="mutebtndiv">
+		<i class="fa fa-volume-up" id="unmutedbtn" aria-hidden="true" style="font-size: 32px; margin: 10px; position: absolute; right: 0;"></i>
+		<i class="fa fa-volume-off" id="mutedbtn" aria-hidden="true" style="display: none; font-size: 32px; margin: 10px; position: absolute; right: 0;"></i>
 		</div>
-		<button class="btn btn-default btn-lg" id="nextbtn">Next</button>
+	<button class="btn btn-default btn-lg" id="nextbtn" style="font-family: 'Abhaya Libre', serif;">Next</button>
 
 	<script src="node_modules/jquery/dist/jquery.min.js" type="text/javascript" charset="utf-8"></script>
 	<script src="node_modules/howler/src/howler.core.js" type="text/javascript" charset="utf-8"></script>
