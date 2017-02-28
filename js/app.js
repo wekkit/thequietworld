@@ -1,5 +1,4 @@
 window.onload = function () {
-	console.log("good to go!");
 
 	// DECLARE DOM BINDINGS ----------------------------
 	var text = document.getElementById("text");
@@ -43,7 +42,6 @@ window.onload = function () {
 		for (i = 0; i < (167-wordcount); i++) {
 			newtext += textArray[i] + " ";
 		}
-		console.log(newtext);
 	}
 	var sound = true;
 
@@ -99,7 +97,6 @@ window.onload = function () {
 		if (gametext[gamestate].event === "start") {
 			crowdSound.play();
 			crowdSound.fade(0,1,3000);
-			console.log("gametext[gamestate].event");
 		}
 		if (gametext[gamestate].event === "blackout1") {
 			crowdSound.fade(1,0,2000);
@@ -114,7 +111,6 @@ window.onload = function () {
 				$("#skybox").css("background-color", "black");
 				nextStep();
 			}, 2000);
-			console.log("gametext[gamestate].event");
 		}
 		if (gametext[gamestate].event === "blackout") {
 			$("#bottompanel").fadeOut(400);
@@ -128,18 +124,15 @@ window.onload = function () {
 				$("#skybox").css("background-color", "black");
 				nextStep();
 			}, 2000);
-			console.log("gametext[gamestate].event");
 		}
 		if (gametext[gamestate].event === "awaken") {
 			alarmSound.play();
 			$("#bottompanel").fadeIn(400);
 			crowdSound.stop()
-			console.log("gametext[gamestate].event");
 		}
 		if (gametext[gamestate].event === "showBottomPanel") {
 			$("#bottompanel").fadeIn(400);
 			crowdSound.stop()
-			console.log("gametext[gamestate].event");
 		}
 		if (gametext[gamestate].event === "unchoice") {
 			$("#choicebtns").hide();
@@ -379,7 +372,6 @@ window.onload = function () {
 			$("#choicebtns").fadeIn(400);
 			$("#choice1").on("click", function() {
 				gamechoice[0] = 1;
-				console.log("picked choice one");
 				gametext[gamestate].text = "You decided to get up. It's a new day, and there's work to be done.";
 				// choicebtns.parentNode.replaceChild(choicebtnsClone, choicebtns);
 				nextStep();
@@ -388,7 +380,6 @@ window.onload = function () {
 			});
 			$("#choice4").on("click", function() {
 				gamechoice[0] = 2;
-				console.log("picked choice two");
 				gametext[gamestate].text = "You're not ready to face the day... but you need money. And food. And a place to stay.";
 				nextStep();
 				$("#choice1").off('click');
@@ -1282,7 +1273,6 @@ window.onload = function () {
 	// FUNCTION FOR END OF GAME
 	var endCheck = function() {
 		if (gametext[gamestate].event === "end") {
-			console.log("ending reached")
 			$("#nextbtn").hide();
 			$("#text").css("text-align", "center");
 			text.innerHTML = "You kneel.<br>You have " + (167-wordcount) + " words remaining."
@@ -1367,8 +1357,6 @@ window.onload = function () {
 
 		endCheck();
 
-		console.log("this is line " + gamestate + ". Word count is " + wordcount);
-		console.log(gametext[gamestate]);
 		$("#title").html(167-wordcount);
 		gamestate++;
 	}
