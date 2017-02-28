@@ -1571,5 +1571,4 @@ window.onload = function () {
 
 	// ADD LISTENERS TO BUTTONS ---------------------------
 	nextbtn.addEventListener("click", nextStep);
-
 };
